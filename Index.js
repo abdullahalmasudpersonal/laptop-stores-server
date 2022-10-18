@@ -14,14 +14,7 @@ app.use(express.json());
 
 // mongodb uri
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dvlqtdb.mongodb.net/?retryWrites=true&w=majority`;
-
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-/* client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-}); */
 
 function verifyJWT(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -106,31 +99,6 @@ async function run() {
       const result = await cursor.toArray()
       res.send(result)
     });
-
-    // admin get order api
-    /*    app.get('/order', async (req, res) => {
-         const query = {};
-         const cursor = orderCollection.find(query);
-         const orders = await cursor.toArray();
-         res.send(orders);
-       }) */
-
-    // get method
-    /*     app.get("/order/:id", async (req, res) => {
-         const id = req.params.id
-         const query = { _id: ObjectId(id) }
-         const result = await orderCollection.findOne(query)
-         res.send(result)
-       });  */
-
-    // get order api
-    /*     app.get('/order', async (req, res) => {
-         const email = req.query.email;
-         const query = { email: email };
-         const cursor = orderCollection.find(query);
-         const orders = await cursor.toArray();
-         res.send(orders);
-       });  */
 
     // milestone 12 module-74.8 get order api
     app.get('/myorder', verifyJWT, async (req, res) => {
@@ -249,7 +217,6 @@ async function run() {
         const result = await userCollection.deleteOne(query)
         res.send(result)
       })
-
     });
     ///////////////////////////////////////////////////////////////////////////////////
 
